@@ -252,7 +252,6 @@ describe('Collections', function() {
 		describe('sortBy', function() {
 		it('should sort by age', function() {
 			var human = [{stage : 'baby', age : 2}, {stage : 'adult', age : 30}];
-			console.log(human[0].stage);
 			human = library.sortBy(human, function(person) {
 			return person.age;
 			});
@@ -463,7 +462,6 @@ describe('Arrays', function() {
             it('should return the intertersection of arrays', function() {
               var land = ['bird', 'beaver', 'platypus'];
               var water = ['platypus', 'fish', 'whale'];
-
               expect(library.intersection(land, water)).to.eql(['platypus']);
             });
 		});
