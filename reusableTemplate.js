@@ -143,15 +143,33 @@ var library = (function(){
 						sort_index++;
 					}
 				}
-				sorted_list.splice(sort_index,0,list[i]);				
+				sorted_list.splice(sort_index,0,list[i]);
 			}
 			return sorted_list;
 		},
 
 		// Objects --- Complete Functions Below
-		extend : function(obj) {},
+		extend : function(obj) {
+			var args=arguments;
+			for (var i=1; i<args.length; i++) {
+				for (var j=0; j<Object.keys(args[i]).length; j++) {
+//					if ( args[0][Object.keys(args[i])[j]] === undefined ) args[0][Object.keys(args[i])[j]] = args[i][Object.keys(args[i])[j]];
+					args[0][Object.keys(args[i])[j]] = args[i][Object.keys(args[i])[j]];
+				}
+			}
+			return args[0];
+		},
 
-		defaults : function(obj) {},
+		defaults : function(obj) {
+			var args=arguments;
+			for (var i=1; i<args.length; i++) {
+				for (var j=0; j<Object.keys(args[i]).length; j++) {
+					if ( args[0][Object.keys(args[i])[j]] === undefined ) args[0][Object.keys(args[i])[j]] = args[i][Object.keys(args[i])[j]];
+//					args[0][Object.keys(args[i])[j]] = args[i][Object.keys(args[i])[j]];
+				}
+			}
+			return args[0];
+		},
 
 		// Arrays --- Complete Functions Below
 		first : function(array, n) {
@@ -275,6 +293,10 @@ var library = (function(){
 			}
 		},
 
-		delay : function(func, wait) {}
+		delay : function(func, wait) {
+			var args = [];
+			args = Array.prototype.slice.call(arguments,2);
+			setInterval(function(){func.apply(this,args);},wait);
+		}
 	}
 })();
